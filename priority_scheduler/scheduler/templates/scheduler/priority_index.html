@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Priority Scheduling Gantt Chart Generator</title>
+  </head>
+  <body>
+    <h1>Priority Scheduling Gantt Chart Generator (Non-Preemptive)</h1>
+
+    <form method="post">
+      {% csrf_token %}
+      <label for="num_processes">Number of Processes:</label>
+      <input type="number" id="num_processes" name="num_processes" required />
+      <button type="button" onclick="generateInputs()">Generate Inputs</button>
+
+      <div id="process_inputs"></div>
+
+      <button type="submit">Generate Gantt Chart</button>
+    </form>
+
+    <script>
+      function generateInputs() {
+        const numProcesses = document.getElementById("num_processes").value;
+        const processInputsDiv = document.getElementById("process_inputs");
+        processInputsDiv.innerHTML = "";
+        for (let i = 0; i < numProcesses; i++) {
+          processInputsDiv.innerHTML += `
+                    <div>
+                        <h3>Process ${i + 1}</h3>
+                        <label>Priority:</label>
+                        <input type="number" name="priority_${i}" required>
+                        <label>Arrival Time:</label>
+                        <input type="number" name="arrival_time_${i}" required>
+                        <label>Burst Time:</label>
+                        <input type="number" name="burst_time_${i}" required>
+                    </div>
+                `;
+        }
+      }
+    </script>
+
+    {% if process_list %}
+    <h2>Process List</h2>
+    <table border="1">
+      <thead>
+        <tr>
+          <th>Priority</th>
+          <th>Process ID</th>
+          <th>Arrival Time</th>
+          <th>Burst Time</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for process in process_list %}
+        <tr>
+          <td>{{ process.priority }}</td>
+          <td>{{ process.process_id }}</td>
+          <td>{{ process.arrival_time }}</td>
+          <td>{{ process.burst_time }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% endif %} {% if gantt_chart %}
+    <h2>Gantt Chart</h2>
+    <img src="data:image/png;base64,{{ gantt_chart }}" alt="Gantt Chart" />
+    {% endif %} {% if results %}
+    <h2>Results</h2>
+    <p>Average Waiting Time: {{ results.average_waiting_time }}</p>
+    <p>Average Turn Around Time: {{ results.average_turnaround_time }}</p>
+    <ul>
+      {% for process, data in results.completed.items %}
+      <li>
+        Process {{ process }}: Completion Time = {{ data.0 }}, Turn Around Time
+        = {{ data.1 }}, Waiting Time = {{ data.2 }}
+      </li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+  </body>
+</html>
