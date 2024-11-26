@@ -33,8 +33,7 @@ def fcfs_index(request):
         ]
 
         if process_list:
-            gantt, process_timeline, completed, avg_waiting_time, avg_turnaround_time = fcfs(process_list)
-            total_time = sum(duration for _, _, duration in process_timeline)
+            gantt, process_timeline, completed, avg_waiting_time, avg_turnaround_time, total_time = fcfs(process_list)
             gantt_chart = plot_gantt_chart(process_timeline, total_time)
             results = format_results(completed, avg_waiting_time, avg_turnaround_time)
 

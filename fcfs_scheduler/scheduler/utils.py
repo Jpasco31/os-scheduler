@@ -17,7 +17,10 @@ def fcfs(process_list):
     total_turn_around_time = 0
 
     # Sort processes by arrival time
-    process_list = sorted(process_list)
+    process_list = sorted(process_list, key=lambda x: x[0])
+
+    # Get the arrival time of the first process
+    first_arrival_time = process_list[0][0] if process_list else 0
 
     # Process each job
     while process_list:
@@ -40,10 +43,13 @@ def fcfs(process_list):
             total_turn_around_time += turn_around_time
 
     # Calculate averages
-    avg_waiting_time = total_waiting_time / len(completed)
-    avg_turnaround_time = total_turn_around_time / len(completed)
+    avg_waiting_time = total_waiting_time / len(completed) if completed else 0
+    avg_turnaround_time = total_turn_around_time / len(completed) if completed else 0
 
-    return gantt, process_timeline, completed, avg_waiting_time, avg_turnaround_time
+    # Calculate total time as the completion time of the last process minus the arrival time of the first process
+    total_time = completion_time
+
+    return gantt, process_timeline, completed, avg_waiting_time, avg_turnaround_time, total_time
 
 
 def plot_gantt_chart(process_timeline, total_time):

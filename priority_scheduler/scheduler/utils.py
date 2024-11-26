@@ -15,6 +15,10 @@ def priority_scheduling(process_list):
     total_waiting_time = 0
     total_turn_around_time = 0
 
+    # Sort the process list by arrival time to find the first arrival time
+    process_list.sort(key=lambda x: x[3])
+    first_arrival_time = process_list[0][3]
+
     while process_list:
         # Collect processes that have arrived and sort by priority
         available = [p for p in process_list if p[3] <= time]
@@ -24,8 +28,8 @@ def priority_scheduling(process_list):
             gantt.append(("Idle", 1))
             continue
 
-        # Sort by priority (lower numbers indicate higher priority)
-        available.sort(key=lambda x: (x[0], x[3]))  # Sort by priority, then by arrival time
+        # Sort by priority (lower numbers indicate higher priority), then by arrival time
+        available.sort(key=lambda x: (x[0], x[3]))
         process = available[0]
         
         priority, process_id, burst_time, arrival_time = process
@@ -44,10 +48,15 @@ def priority_scheduling(process_list):
         total_waiting_time += waiting_time
         total_turn_around_time += turn_around_time
 
+    # Calculate averages
     avg_waiting_time = total_waiting_time / len(completed)
     avg_turnaround_time = total_turn_around_time / len(completed)
 
-    return gantt, process_timeline, completed, avg_waiting_time, avg_turnaround_time
+    # Calculate total time as the completion time of the last process minus the arrival time of the first process
+    total_time = completion_time
+
+    return gantt, process_timeline, completed, avg_waiting_time, avg_turnaround_time, total_time
+
 
 
 def plot_gantt_chart(process_timeline, total_time):
@@ -62,8 +71,9 @@ def plot_gantt_chart(process_timeline, total_time):
     ax.set_xlim(0, total_time)
     ax.set_xlabel("Time")
     ax.set_yticks([])
-    ax.set_title("Gantt Chart for Priority Scheduling with Completion Times")
+    ax.set_title("Gantt Chart for FCFS Scheduling with Completion Times")
 
+    # Save the chart to a PNG in memory
     buffer = io.BytesIO()
     plt.savefig(buffer, format='png')
     buffer.seek(0)

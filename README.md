@@ -9,22 +9,32 @@ This project includes implementations of non-preemptive OS scheduling algorithms
 1. **First-Come, First-Served (FCFS)**
 
    - Projects:
-     - `fcfs_scheduler`: Django Application
-     - `Fcfs.ipynb`: Jupyter Notebook
      - `Fcfs.py`: Python Script
 
 2. **Shortest Job First (SJF)**
 
    - Projects:
-     - `sjf_scheduler`: Django Application
-     - `Sjf.ipynb`: Jupyter Notebook
      - `Sjf.py`: Python Script
 
 3. **Priority Scheduling (Non-Preemptive)**
    - Projects:
-     - `priority_scheduler`: Django Application
-     - `PriorityNonPreemptive.ipynb`: Jupyter Notebook
      - `PriorityNonPreemptive.py`: Python Script
+
+### Preemptive Algorithms
+
+1. **Round Robin (RR)**
+
+   - Projects:
+     - `RoundRobin.py`: Python Script
+
+2. **Shortest Remaining Time First (SRTF)**
+
+   - Projects:
+     - `Srtf.py`: Python Script
+
+3. **Priority Scheduling (Preemptive)**
+   - Projects:
+     - `PriorityPreemptive.py`: Python Script
 
 ## Dependencies
 
@@ -61,12 +71,14 @@ To run any of the Django-based scheduler applications, follow these steps:
 1. Navigate to the project directory:
 
    ```bash
-   cd "project_nam"
+   cd "project_name"
    ```
 
    Replace "project_name" with the desired project folder (e.g., fcfs_scheduler).
 
-2. Start the Django server:
+2. Apply migrations (if necessary):
+
+3. Start the Django server:
    ```bash
    python manage.py runserver
    ```
