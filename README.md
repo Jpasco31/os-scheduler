@@ -1,6 +1,6 @@
 # OS Scheduler
 
-This project includes implementations of non-preemptive OS scheduling algorithms: **First-Come, First-Served (FCFS)**, **Shortest Job First (SJF)**, and **Priority Scheduling (Non-Preemptive)**.
+This project includes implementations of non-preemptive OS scheduling algorithms: **Non-Preemptive** and **Preemptive OS Scheduling Algorithms**, as well ass **I/O Management Algorithms**.
 
 ## Schedulers Included
 
@@ -36,6 +36,22 @@ This project includes implementations of non-preemptive OS scheduling algorithms
    - Projects:
      - `PriorityPreemptive.py`: Python Script
 
+### I/O Management Algorithms
+
+1. **First-Come, First-Serve (fcfs)**
+
+   - Projects:
+     - `io-management/fcfs.py`: Python Script
+
+2. **C-LOOK**
+
+   - Projects:
+     - `cLook.py`: Python Script
+
+3. **C-SCAN**
+   - Projects:
+     - `cScan.py`: Python Script
+
 ## Dependencies
 
 - Python
@@ -59,7 +75,7 @@ Ensure you have Python installed, then install the dependencies using the follow
    pip install matplotlib
    ```
 
-3. Install Django:
+3. Install Django: (If running the Django Apps)
    ```bash
    pip install django
    ```
@@ -67,6 +83,13 @@ Ensure you have Python installed, then install the dependencies using the follow
 ## Running the Django Projects
 
 To run any of the Django-based scheduler applications, follow these steps:
+_Note: Only Non-preemptive Scheduling algorithms have django app_
+
+### Django Projects
+
+- Fcfc_scheduler
+- priority_scheduler
+- sjf_scheduler
 
 1. Navigate to the project directory:
 
@@ -86,4 +109,4 @@ To run any of the Django-based scheduler applications, follow these steps:
 ### Notes
 
 - The Python scripts (.py files) are standalone implementations of each scheduling algorithm.
-- The Jupyter Notebooks (.ipynb files) contain step-by-step explanations and code for each algorithm, suitable for learning and experimenting.
+- Ensure the required dependencies are installed before executing the scripts or running Django applications.
