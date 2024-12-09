@@ -1,5 +1,23 @@
 import matplotlib.pyplot as plt
 
+"""
+This program simulates the First-Come, First-Served (FCFS) Disk Scheduling Algorithm. 
+FCFS services disk requests in the order they arrive, regardless of their position, 
+making it straightforward but potentially inefficient for minimizing head movement.
+
+Key Features:
+1. User input for initial disk arm position and track requests.
+2. Simple scheduling where requests are serviced in the order received.
+3. Calculates total head movement for performance evaluation.
+4. Visualizes disk arm movement using Matplotlib.
+
+Flow:
+1. Accepts user input for disk arm position and requests.
+2. Initializes a `DiskArm` class to track movements and sequence.
+3. Processes requests using `fcfs_scheduling()`.
+4. Displays the order of service, movements, total head movement, and visualizes the sequence.
+"""
+
 class DiskArm:
     def __init__(self, initial_position):
         self.current_position = initial_position

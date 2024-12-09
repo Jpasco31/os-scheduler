@@ -1,5 +1,24 @@
 import matplotlib.pyplot as plt
 
+"""
+This program simulates the C-SCAN Disk Scheduling Algorithm, a circular variant of the SCAN algorithm. 
+C-SCAN optimizes disk head movement by servicing requests in ascending order until the highest track is reached, 
+then jumping to the lowest track and continuing the servicing cycle.
+
+Key Features:
+1. User input for initial disk arm position and track requests.
+2. Efficient servicing of requests by treating the disk as a circular list.
+3. Calculates total head movement for performance evaluation.
+4. Visualizes disk arm movement using Matplotlib.
+
+Flow:
+1. Accepts user input for disk arm position and requests.
+2. Initializes a `DiskArm` class to track movements and sequence.
+3. Processes requests using `c_scan_scheduling()`.
+4. Displays the order of service, movements, total head movement, and visualizes the sequence.
+"""
+
+
 class DiskArm:
     def __init__(self, initial_position):
         self.current_position = initial_position

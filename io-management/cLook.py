@@ -1,5 +1,23 @@
 import matplotlib.pyplot as plt
 
+"""
+This program simulates the C-LOOK Disk Scheduling Algorithm, optimizing disk head movement by servicing requests 
+in ascending order from the current position, then jumping to the lowest request and continuing in the same direction.
+
+Key Features:
+1. User input for initial disk arm position and track requests.
+2. Efficient servicing of requests with minimal head movement.
+3. Calculates total head movement for performance evaluation.
+4. Visualizes disk arm movement using Matplotlib.
+
+Flow:
+1. Accepts user input for disk arm position and requests.
+2. Initializes a `DiskArm` class to track movements and sequence.
+3. Processes requests using `c_look_scheduling()`.
+4. Displays the order of service, movements, total head movement, and visualizes the sequence.
+"""
+
+
 class DiskArm:
     def __init__(self, initial_position):
         self.current_position = initial_position
