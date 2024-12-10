@@ -13,8 +13,8 @@ Key Features:
 
 Flow:
 1. Accepts user input for disk arm position and requests.
-2. Initializes a `DiskArm` class to track movements and sequence.
-3. Processes requests using `fcfs_scheduling()`.
+2. Initializes a DiskArm class to track movements and sequence.
+3. Processes requests using fcfs_scheduling().
 4. Displays the order of service, movements, total head movement, and visualizes the sequence.
 """
 
@@ -22,7 +22,7 @@ class DiskArm:
     def __init__(self, initial_position):
         self.current_position = initial_position
         self.total_movement = 0
-        self.track_access_sequence = [initial_position]  # To store the sequence for plotting
+        self.track_access_sequence = [initial_position]
 
     def move_to(self, track):
         movement = abs(track - self.current_position)
@@ -42,7 +42,7 @@ def plot_movement(track_access_sequence):
     plt.figure(figsize=(10, 6))
     plt.plot(track_access_sequence, marker='o', linestyle='-', color='b')
     plt.title('Disk Arm Movement (FCFS Scheduling)')
-    plt.xlabel('Request Order')
+    plt.xlabel('Access Step')
     plt.ylabel('Track Number')
     plt.grid(True)
     plt.xticks(range(len(track_access_sequence)))
@@ -51,7 +51,7 @@ def plot_movement(track_access_sequence):
 def main():
     print("FCFS Disk Scheduling Simulation")
 
-    # User input for initial disk arm position
+    # Get initial disk arm position
     while True:
         try:
             initial_position = int(input("Enter the initial position of the disk arm (0-199): "))
@@ -62,36 +62,36 @@ def main():
         except ValueError:
             print("Invalid input. Please enter an integer.")
 
-    # User input for track requests
+    # Get requests
     while True:
         try:
-            requests_input = input("Enter the sequence of track requests separated by spaces (e.g., 55 58 39 18 90): ")
+            requests_input = input("Enter the sequence of track requests separated by spaces: ")
             requests = list(map(int, requests_input.strip().split()))
-            if all(0 <= track <= 199 for track in requests):
+            if requests and all(0 <= t <= 199 for t in requests):
                 break
             else:
                 print("All track numbers must be between 0 and 199.")
         except ValueError:
-            print("Invalid input. Please enter integers separated by spaces.")
+            print("Invalid input. Please enter integers.")
 
     # Initialize DiskArm
     disk_arm = DiskArm(initial_position)
 
-    # Process FCFS Scheduling
+    # Process requests using FCFS
     service_order = fcfs_scheduling(disk_arm, requests)
 
-    # Display the results
+    # Display results
     print("\nOrder of Service:")
-    print("Request\tMovement")
+    print("Index\tTrack\tMovement")
     for idx, (track, movement) in enumerate(service_order, start=1):
-        print(f"{idx}. {track}\t{movement} track(s)")
+        print(f"{idx}\t{track}\t{movement} tracks")
 
-    print(f"\nTotal head movement: {disk_arm.total_movement} track(s)")
+    print(f"\nTotal head movement: {disk_arm.total_movement} tracks")
 
-    # Display the sequence of track accesses
-    print("\nSequence of track accesses:", " -> ".join(map(str, disk_arm.track_access_sequence)))
+    print("\nSequence of track accesses (head movement path):")
+    print(" -> ".join(map(str, disk_arm.track_access_sequence)))
 
-    # Plotting the movement using the separate function
+    # Plot the movement
     plot_movement(disk_arm.track_access_sequence)
 
 if __name__ == "__main__":
